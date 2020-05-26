@@ -2,16 +2,14 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, timer } from 'rxjs';
 import { catchError, first, map, switchMap, takeUntil } from 'rxjs/operators';
+import { TransportState } from 'src/app/shared/models';
+import { toTransportState } from 'src/app/shared/reaper-helpers';
 
 @Injectable()
 export class ReaperService {
 
   private readonly baseUrl = '/_/';
-
   private readonly stopPolling$ = new Subject<void>();
-
-  private _update$ = new BehaviorSubject<any | null>(null);
-  update$ = this._update$.asObservable();
 
   private _error$ = new BehaviorSubject<Error | any>(null);
   error$ = this._error$.asObservable();
@@ -21,10 +19,10 @@ export class ReaperService {
   ) {
   }
 
-  public startPolling = (interval: number): Observable<string> =>
+  public startPolling = (interval: number): Observable<TransportState> =>
     timer(0, interval)
       .pipe(
-        switchMap(_ => this.requestData()),
+        switchMap(_ => this.requestState()),
         takeUntil(this.stopPolling$)
       )
 
@@ -43,12 +41,13 @@ export class ReaperService {
       })
     )
 
-  private requestData = (): Observable<string> => this.http.get<HttpResponse<any>>(`${this.baseUrl}TRANSPORT;`, {
+  private requestState = (): Observable<TransportState> => this.http.get<HttpResponse<any>>(`${this.baseUrl}TRANSPORT;`, {
     headers: this.getHeaders(),
     observe: 'response',
     responseType: 'text'
   } as any).pipe(
-    map(res => (res as HttpResponse<any>).body)
+    map(res => (res as HttpResponse<any>).body),
+    toTransportState
   )
 
   private getHeaders = (): HttpHeaders =>

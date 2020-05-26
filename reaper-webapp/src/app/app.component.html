@@ -1,5 +1,11 @@
+<input type="number"
+       (change)="updateInterval($event.target.value)" />
 <button (click)="play()">PLAY</button>
 <button (click)="addAction()">ADD ACTION</button>
+
+<ng-container *ngIf="state$ | async as state">
+  <pre>{{ state | json }}</pre>
+</ng-container>
 
 <ng-container *ngIf="actions$ | async as actions">
   <button *ngFor="let action of actions"

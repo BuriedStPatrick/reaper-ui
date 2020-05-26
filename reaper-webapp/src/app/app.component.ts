@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { TransportState } from 'src/app/shared/models';
 import { ReaperService } from './shared/reaper.service';
 
 export interface Action {
@@ -22,6 +23,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private _actions$ = new BehaviorSubject<Action[] | null>(null);
   actions$ = this._actions$.asObservable();
 
+  private _interval$ = new BehaviorSubject<number | null>(0);
+  interval$ = this._interval$.asObservable();
+
+  state$: Observable<TransportState>;
+
   constructor(
     private reaperService: ReaperService
   ) { }
@@ -32,12 +38,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.reaperService.startPolling(3000).pipe(
-      tap(res => console.log(res)),
+    this.state$ = this.reaperService.startPolling(500).pipe(
       takeUntil(this.abandon$)
-    )
-    .subscribe();
+    );
   }
+
+  public updateInterval = (interval: number) =>
+    this._interval$.next(interval)
 
   public play = () =>
     this.reaperService.play()
