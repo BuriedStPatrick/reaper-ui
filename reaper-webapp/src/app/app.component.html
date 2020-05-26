@@ -1,2 +1,9 @@
 <button (click)="play()">PLAY</button>
+<button (click)="addAction()">ADD ACTION</button>
 
+<ng-container *ngIf="actions$ | async as actions">
+  <button *ngFor="let action of actions"
+          (click)="runAction(action)">
+    {{ action.name }}
+  </button>
+</ng-container>
