@@ -1,11 +1,9 @@
 <ng-container *ngIf="tracks$ | async as tracks">
-    <p>Tracks</p>
-    <ul>
-        <li *ngFor="let track of tracks">
-            <p>Name: {{ track.trackname }} </p>
-            <p>Color: {{ track.color }}</p>
-            <p>Is muted: {{ track.isMuted }}</p>
-            <p>Is folder: {{ track.isFolder }}</p>
-        </li>
-    </ul>
+    <mat-card *ngFor="let track of tracks"
+              style="margin: 1em; width: 500px;">
+        <p>Name: {{ track.trackname }} </p>
+        <p>Color: {{ track.color }}</p>
+        <p>Is muted: {{ track.isMuted }}</p>
+        <p>Is folder: {{ track.isFolder }}</p>
+    </mat-card>
 </ng-container>

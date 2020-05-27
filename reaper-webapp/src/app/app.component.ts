@@ -13,6 +13,7 @@ import { ReaperService } from './shared/reaper.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
     title = 'reaper-webapp';
+    showFiller = false;
 
     private readonly abandon$ = new Subject<void>();
 

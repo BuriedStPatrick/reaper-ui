@@ -1,20 +1,75 @@
-<ng-container *ngIf="transportState$ | async as transport">
-    <button (click)="play()">{{transport.playstate ? '⏸ PAUSE' : '▶️ PLAY'}}</button>
-    <button (click)="addAction()">➕ ADD ACTION</button>
-</ng-container>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button
+                class="example-icon"
+                aria-hidden="false"
+                aria-label="Example delete icon"
+                style="margin-right: 1em;"
+                (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>Reaper UI</span>
+        <ng-container *ngIf="transportState$ | async as transport">
+            <div class="example-button-container"
+                 style="margin-left: 1em">
+                <button mat-fab
+                        color="accent"
+                        aria-label="Play"
+                        (click)="play()">
+                    <mat-icon>{{transport.playstate ? 'pause' : 'play_arrow'}}</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+        <span class="example-spacer"></span>
+        <button mat-icon-button
+                class="example-icon"
+                aria-hidden="false"
+                aria-label="Go fullscreen">
+            <mat-icon>fullscreen</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="example-icon"
+                aria-hidden="false"
+                aria-label="Settings and more">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <button mat-button
+                routerLink="/">
+            <mat-icon>home</mat-icon> Home
+        </button>
+        <button mat-button
+                routerLink="/actions">
+            <mat-icon>play_arrow</mat-icon> Actions
+        </button>
+        <button mat-button
+                routerLink="/tracks">
+            <mat-icon>list</mat-icon> Tracks
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container class="example-container"
+                      style="height: 100%"
+                      autosize>
+    <mat-drawer #drawer
+                class="example-sidenav"
+                mode="side">
+        <p>Auto-resizing sidenav</p>
+        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <button (click)="showFiller = !showFiller"
+                mat-raised-button>
+            Toggle extra text
+        </button>
+    </mat-drawer>
 
-<nav>
-    <ul>
-        <li>
-            <a routerLink="/">HOME</a>
-        </li>
-        <li>
-            <a routerLink="/actions">ACTIONS</a>
-        </li>
-        <li *ngIf="trackCount$ | async as trackCount">
-            <a routerLink="/tracks">TRACKS ({{trackCount}})</a>
-        </li>
-    </ul>
-</nav>
+    <div class="example-sidenav-content">
+        <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+        <button type="button"
+                mat-button
+                (click)="drawer.toggle()">
+        </button>
+    </div>
+
+</mat-drawer-container>
