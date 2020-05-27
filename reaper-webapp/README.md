@@ -26,6 +26,8 @@ import { ReaperService } from './shared/reaper.service';
     providers: [ReaperService]
 })
 export class AppComponent implements OnInit, OnDestroy {
+    transportState$: Observable<TransportState>;
+    
     constructor(
         private reaperService: ReaperService
     ) { }
