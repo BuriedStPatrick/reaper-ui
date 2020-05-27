@@ -1,31 +1,24 @@
-<button (click)="play()">PLAY</button>
-<button (click)="addAction()">ADD ACTION</button>
-
 <ng-container *ngIf="transportState$ | async as transport">
-    <p>Transport</p>
-    <pre>{{ transport | json }}</pre>
+    <button (click)="play()">{{transport.playstate ? '⏸ PAUSE' : '▶️ PLAY'}}</button>
+    <button (click)="addAction()">➕ ADD ACTION</button>
 </ng-container>
+
+<nav>
+    <ul>
+        <li *ngIf="trackCount$ | async as trackCount">
+            <a routerLink="/tracks">TRACKS ({{trackCount}})</a>
+        </li>
+        <li>
+            <a routerLink="/">HOME</a>
+        </li>
+    </ul>
+</nav>
+
+<router-outlet></router-outlet>
 
 <ng-container *ngIf="beatposState$ | async as beatpos">
     <p>Beatpos</p>
     <pre>{{ beatpos | json }}</pre>
-</ng-container>
-
-<ng-container *ngIf="trackCount$ | async as trackCount">
-    <p>Trackcount</p>
-    <pre>{{ trackCount }}</pre>
-</ng-container>
-
-<ng-container *ngIf="tracks$ | async as tracks">
-    <p>Tracks</p>
-    <ul>
-        <li *ngFor="let track of tracks">
-            <p>Name: {{ track.trackname }} </p>
-            <p>Color: {{ track.color }}</p>
-            <p>Is muted: {{ track.isMuted }}</p>
-            <p>Is folder: {{ track.isFolder }}</p>
-        </li>
-    </ul>
 </ng-container>
 
 <ng-container *ngIf="actions$ | async as actions">

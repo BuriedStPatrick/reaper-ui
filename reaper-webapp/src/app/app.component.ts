@@ -1,18 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { BeatposState, TrackFlag, TrackState, TransportState } from 'src/app/shared/models';
-import { hasFlag } from 'src/app/shared/reaper-helpers';
+import { takeUntil } from 'rxjs/operators';
+import { BeatposState, TransportState } from 'src/app/shared/models';
 import { ReaperService } from './shared/reaper.service';
 
 export interface Action {
     id: number;
     name: string;
-}
-
-export interface Track extends TrackState {
-    isFolder: boolean;
-    isMuted: boolean;
 }
 
 @Component({
@@ -32,7 +26,6 @@ export class AppComponent implements OnInit, OnDestroy {
     transportState$: Observable<TransportState>;
     beatposState$: Observable<BeatposState>;
     trackCount$: Observable<number>;
-    tracks$: Observable<Track[]>;
 
     constructor(
         private reaperService: ReaperService
@@ -52,14 +45,6 @@ export class AppComponent implements OnInit, OnDestroy {
         );
 
         this.trackCount$ = this.reaperService.pollTrackCount(5000).pipe(
-            takeUntil(this.abandon$)
-        );
-
-        this.tracks$ = this.reaperService.pollTrackState(1000).pipe(
-            map(tracks => tracks.map(track => ({...track,
-                isFolder: hasFlag(track, TrackFlag.folder),
-                isMuted: hasFlag(track, TrackFlag.muted)
-            } as Track))),
             takeUntil(this.abandon$)
         );
     }
