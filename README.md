@@ -1,5 +1,7 @@
 # Reaper UI
-An Angular based web-UI for the REAPER DAW.
+An Angular based web-UI component library and client for the REAPER DAW.
+
+![alt](./img/reaper-ui.gif)
 
 # Building
 1. See readme in `reaper-webapp` for building the webapp and compile the app.
