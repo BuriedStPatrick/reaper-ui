@@ -1,13 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ReaperAction } from 'src/app/shared/action.service';
 import { BeatposState, TransportState } from 'src/app/shared/models';
 import { ReaperService } from './shared/reaper.service';
-
-export interface Action {
-    id: number;
-    name: string;
-}
 
 @Component({
     selector: 'app-root',
@@ -20,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private readonly abandon$ = new Subject<void>();
 
-    private _actions$ = new BehaviorSubject<Action[] | null>(null);
+    private _actions$ = new BehaviorSubject<ReaperAction[] | null>(null);
     actions$ = this._actions$.asObservable();
 
     transportState$: Observable<TransportState>;
@@ -49,10 +45,10 @@ export class AppComponent implements OnInit, OnDestroy {
         );
     }
 
-    public play = () =>
+    public play = (): Subscription =>
         this.reaperService.play()
 
-    public runAction = (action: Action) =>
+    public runAction = (action: ReaperAction) =>
         this.reaperService
             .runAction(action.id)
             .subscribe()
@@ -61,9 +57,10 @@ export class AppComponent implements OnInit, OnDestroy {
         const actions = this._actions$.getValue() ?? [];
 
         actions.push({
-            id: 1016,
-            name: 'Stop'
-        } as Action);
+            id: '1016',
+            action: 'Stop',
+            section: 'Main'
+        } as ReaperAction);
 
         this._actions$.next(actions);
     }

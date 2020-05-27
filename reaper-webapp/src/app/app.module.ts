@@ -4,12 +4,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TrackListComponent } from './track-list/track-list.component';
+import { ActionListComponent } from './action-list/action-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TrackListComponent
+    TrackListComponent,
+    ActionListComponent
   ],
   imports: [
     BrowserModule,

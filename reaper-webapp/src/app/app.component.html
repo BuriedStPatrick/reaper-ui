@@ -5,25 +5,16 @@
 
 <nav>
     <ul>
-        <li *ngIf="trackCount$ | async as trackCount">
-            <a routerLink="/tracks">TRACKS ({{trackCount}})</a>
-        </li>
         <li>
             <a routerLink="/">HOME</a>
+        </li>
+        <li>
+            <a routerLink="/actions">ACTIONS</a>
+        </li>
+        <li *ngIf="trackCount$ | async as trackCount">
+            <a routerLink="/tracks">TRACKS ({{trackCount}})</a>
         </li>
     </ul>
 </nav>
 
 <router-outlet></router-outlet>
-
-<ng-container *ngIf="beatposState$ | async as beatpos">
-    <p>Beatpos</p>
-    <pre>{{ beatpos | json }}</pre>
-</ng-container>
-
-<ng-container *ngIf="actions$ | async as actions">
-    <button *ngFor="let action of actions"
-            (click)="runAction(action)">
-        {{ action.name }}
-    </button>
-</ng-container>

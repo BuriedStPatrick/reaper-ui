@@ -10,6 +10,7 @@
     "no-bitwise": false,
     "array-type": false,
     "arrow-return-shorthand": true,
+    "only-arrow-functions": true,
     "curly": true,
     "deprecation": {
       "severity": "warning"

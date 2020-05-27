@@ -46,11 +46,11 @@ export class ReaperService {
         toTrackState
       )
 
-  public play = () => this.runAction(40073)
+  public play = () => this.runAction('40073')
     .pipe(first())
     .subscribe()
 
-  public runAction = (id: number): Observable<any> =>
+  public runAction = (id: string): Observable<any> =>
     this.http.get(`${this.baseUrl}${id}`).pipe(
       catchError((err: Error, caught: Observable<any>) => {
         this._error$.next(err);

@@ -1,0 +1,28 @@
+<ng-container *ngIf="favoriteActions$ | async as favoriteActions">
+    <h2>Favorites</h2>
+    <ul>
+        <li *ngFor="let action of favoriteActions">
+            <p>{{ action.id }}</p>
+            <p>{{ action.action }}</p>
+            <button (click)="runAction(action)">▶ Run action</button>
+            <button (click)="toggleFavorite(action)">Remove from favorites</button>
+        </li>
+    </ul>
+</ng-container>
+
+<label for="query">Find action</label>
+<input id="query"
+       type="text"
+       (input)="setQuery($event.target.value)" />
+
+<ng-container *ngIf="actions$ | async as actions">
+    <h2>Actions</h2>
+    <ul>
+        <li *ngFor="let action of actions">
+            <p>{{ action.id }}</p>
+            <p>{{ action.action }}</p>
+            <button (click)="runAction(action)">▶ Run action</button>
+            <button (click)="toggleFavorite(action)">♥ Toggle favorite</button>
+        </li>
+    </ul>
+</ng-container>
