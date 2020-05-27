@@ -7,6 +7,7 @@
         "statements"
       ]
     },
+    "no-bitwise": false,
     "array-type": false,
     "arrow-return-shorthand": true,
     "curly": true,

@@ -1,15 +1,36 @@
-<input type="number"
-       (change)="updateInterval($event.target.value)" />
 <button (click)="play()">PLAY</button>
 <button (click)="addAction()">ADD ACTION</button>
 
-<ng-container *ngIf="state$ | async as state">
-  <pre>{{ state | json }}</pre>
+<ng-container *ngIf="transportState$ | async as transport">
+    <p>Transport</p>
+    <pre>{{ transport | json }}</pre>
+</ng-container>
+
+<ng-container *ngIf="beatposState$ | async as beatpos">
+    <p>Beatpos</p>
+    <pre>{{ beatpos | json }}</pre>
+</ng-container>
+
+<ng-container *ngIf="trackCount$ | async as trackCount">
+    <p>Trackcount</p>
+    <pre>{{ trackCount }}</pre>
+</ng-container>
+
+<ng-container *ngIf="tracks$ | async as tracks">
+    <p>Tracks</p>
+    <ul>
+        <li *ngFor="let track of tracks">
+            <p>Name: {{ track.trackname }} </p>
+            <p>Color: {{ track.color }}</p>
+            <p>Is muted: {{ track.isMuted }}</p>
+            <p>Is folder: {{ track.isFolder }}</p>
+        </li>
+    </ul>
 </ng-container>
 
 <ng-container *ngIf="actions$ | async as actions">
-  <button *ngFor="let action of actions"
-          (click)="runAction(action)">
-    {{ action.name }}
-  </button>
+    <button *ngFor="let action of actions"
+            (click)="runAction(action)">
+        {{ action.name }}
+    </button>
 </ng-container>
