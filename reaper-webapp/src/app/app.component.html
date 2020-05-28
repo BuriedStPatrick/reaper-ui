@@ -9,17 +9,6 @@
             <mat-icon>menu</mat-icon>
         </button>
         <span>Reaper UI</span>
-        <ng-container *ngIf="transportState$ | async as transport">
-            <div class="example-button-container"
-                 style="margin-left: 1em">
-                <button mat-fab
-                        color="accent"
-                        aria-label="Play"
-                        (click)="play()">
-                    <mat-icon>{{transport.playstate ? 'pause' : 'play_arrow'}}</mat-icon>
-                </button>
-            </div>
-        </ng-container>
         <span class="example-spacer"></span>
         <button mat-icon-button
                 class="example-icon"
@@ -50,7 +39,6 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <mat-drawer-container class="example-container"
-                      style="height: 100%"
                       autosize>
     <mat-drawer #drawer
                 class="example-sidenav"
@@ -65,11 +53,8 @@
 
     <div class="example-sidenav-content">
         <router-outlet></router-outlet>
-
-        <button type="button"
-                mat-button
-                (click)="drawer.toggle()">
-        </button>
+        <!-- <app-transport style="position: fixed; bottom: 0; left:0; width: 100%; background: green;">
+        </app-transport> -->
     </div>
 
 </mat-drawer-container>

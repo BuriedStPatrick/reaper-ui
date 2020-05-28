@@ -1,0 +1,22 @@
+<mat-card *ngIf="track$ | async as track"
+          [style.color]="isTrackDark(track) ? 'white' : 'black'"
+          [style.background]="track.color"
+          style="margin: 1em; width: 500px;">
+    <mat-card-header>
+        <div mat-card-avatar>
+            {{ track.tracknumber }}
+        </div>
+        <mat-card-title>{{ track.trackname }}</mat-card-title>
+        <mat-card-subtitle *ngIf="track.isSelected">Selected</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <button mat-button
+                (click)="toggleMute(track)">
+            <mat-icon>{{ track.isMuted ? 'volume_off' : 'volume_up'}}</mat-icon>
+        </button>
+        <button mat-button
+                (click)="toggleRecordArm(track)">
+            <mat-icon>{{ track.isRecordArmed ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+        </button>
+    </mat-card-actions>
+</mat-card>

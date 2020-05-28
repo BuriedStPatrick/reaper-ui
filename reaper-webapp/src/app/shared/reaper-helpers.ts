@@ -32,7 +32,26 @@ export const toTrackCount = (input: Observable<string>): Observable<number> => i
   map(body => Number.parseInt(body.split('\t')[1], 10))
 );
 
-export const toTrackState = (input: Observable<string>): Observable<TrackState[]> => input.pipe(
+export const toTrackState = (input: Observable<string>): Observable<TrackState> => input.pipe(
+    map(body => body.split('\t')),
+    map(split => ({
+        tracknumber: Number.parseInt(split[1], 10),
+        trackname: split[2],
+        trackflags: Number.parseInt(split[3], 10),
+        volume: Number.parseFloat(split[4]),
+        pan: Number.parseFloat(split[5]),
+        lastMeterPeak: Number.parseFloat(split[6]) / 10,
+        lastMeterPos: Number.parseFloat(split[7]) / 10,
+        widthPan2: Number.parseInt(split[8], 10),
+        panmode: Number.parseInt(split[9], 10),
+        sendCount: Number.parseInt(split[10], 10),
+        receiveCount: Number.parseInt(split[11], 10),
+        hardwareOutCount: Number.parseInt(split[12], 10),
+        color: toHexColor(Number.parseInt(split[13], 10))
+    } as TrackState))
+);
+
+export const toTrackStates = (input: Observable<string>): Observable<TrackState[]> => input.pipe(
   map(body => body.split('\n').filter(b => b.trim() !== '')),
   map(trackBodies => trackBodies.map(
     trackBody => {
@@ -58,8 +77,8 @@ export const toTrackState = (input: Observable<string>): Observable<TrackState[]
 
 export const toHexColor = (input: number): string | null =>
   input === 0
-    ? '#898881'
-    : `#${input.toString(16)}`;
+    ? '#ffffff'
+    : `#${input.toString(16).substring(1)}`;
 
 export const hasFlag = (track: TrackState, input: TrackFlag): boolean =>
   (track.trackflags & input) !== 0;

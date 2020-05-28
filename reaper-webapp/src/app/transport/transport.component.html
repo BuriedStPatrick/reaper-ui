@@ -1,0 +1,13 @@
+<ng-container *ngIf="transportState$ | async as transport">
+    <mat-toolbar style="background: white;">
+        <mat-toolbar-row style="padding: 4em 0">
+            <button mat-fab
+                    color="accent"
+                    aria-label="Play"
+                    style="margin: 0 auto;"
+                    (click)="play()">
+                <mat-icon>{{transport.playstate ? 'pause' : 'play_arrow'}}</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+</ng-container>

@@ -10,14 +10,20 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionListComponent } from './action-list/action-list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TrackListComponent } from './track-list/track-list.component';
+import { TrackDetailComponent } from './track/track-detail/track-detail.component';
+import { TrackListComponent } from './track/track-list/track-list.component';
+import { TrackMasterComponent } from './track/track-master/track-master.component';
+import { TransportComponent } from './transport/transport.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TrackListComponent,
-    ActionListComponent
+    ActionListComponent,
+    TransportComponent,
+    TrackDetailComponent,
+    TrackMasterComponent
   ],
   imports: [
     BrowserModule,
