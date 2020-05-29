@@ -3,13 +3,14 @@ import { interval, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { arraysMatch } from 'src/app/shared/array-helpers';
 import { TrackState } from 'src/app/shared/models';
-import { toTrackStates } from 'src/app/shared/reaper-helpers';
+import { toTrackCount, toTrackStates } from 'src/app/shared/reaper-helpers';
 import { ReaperService } from 'src/app/shared/reaper.service';
 
 @Injectable()
 export class TrackMasterStateService implements OnDestroy {
 
     tracks$: Observable<TrackState[]>;
+    trackCount$: Observable<number>;
     abandon$ = new Subject<void>();
     update$ = new Subject<void>();
 
@@ -18,6 +19,13 @@ export class TrackMasterStateService implements OnDestroy {
             switchMap(_ => this.reaperService.requestState('TRACK')),
             toTrackStates,
             distinctUntilChanged(arraysMatch),
+            takeUntil(this.abandon$)
+        );
+
+        this.trackCount$ = this.update$.pipe(
+            switchMap(_ => this.reaperService.requestState('NTRACK')),
+            toTrackCount,
+            distinctUntilChanged(),
             takeUntil(this.abandon$)
         );
 

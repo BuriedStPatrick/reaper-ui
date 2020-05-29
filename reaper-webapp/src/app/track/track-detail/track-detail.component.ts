@@ -1,27 +1,32 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { first, takeUntil, tap } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, first, map, takeUntil, tap } from 'rxjs/operators';
 import { isDark } from 'src/app/shared/colors';
 import { TrackFlag, TrackState } from 'src/app/shared/models';
 import { hasFlag } from 'src/app/shared/reaper-helpers';
 import { ReaperService } from 'src/app/shared/reaper.service';
-import { Track } from 'src/app/track/track-list/track-list.component';
 import { TrackMasterStateService } from 'src/app/track/track-master/track-master-state.service';
+
+export interface TrackDetail extends TrackState {
+    isFolder: boolean;
+    isMuted: boolean;
+    isRecordArmed: boolean;
+    isSelected: boolean;
+}
 
 @Component({
     selector: 'app-track-detail',
     templateUrl: './track-detail.component.html',
-    styleUrls: ['./track-detail.component.scss']
+    styleUrls: ['./track-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrackDetailComponent implements OnInit, OnDestroy {
 
-    // @Input() tracknumber: number;
-    @Input() track: TrackState;
+    @Input() trackNumber: number;
+
+    track$: Observable<TrackDetail>;
 
     private readonly abandon$ = new Subject<void>();
-
-    private _track$ = new BehaviorSubject<Track | null>(null);
-    track$: Observable<Track> = this._track$.asObservable();
 
     constructor(
         private state: TrackMasterStateService,
@@ -29,20 +34,25 @@ export class TrackDetailComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this._track$.next(({
-            ...this.track,
-            isFolder: hasFlag(this.track, TrackFlag.folder),
-            isMuted: hasFlag(this.track, TrackFlag.muted),
-            isRecordArmed: hasFlag(this.track, TrackFlag.recordArmed),
-            isSelected: hasFlag(this.track, TrackFlag.selected)
-        } as Track));
+        this.track$ = this.state.tracks$.pipe(
+            map(tracks => tracks.find(t => t.tracknumber === this.trackNumber)),
+            distinctUntilChanged(),
+            map(track => ({
+                ...track,
+                isFolder: hasFlag(track, TrackFlag.folder),
+                isMuted: hasFlag(track, TrackFlag.muted),
+                isRecordArmed: hasFlag(track, TrackFlag.recordArmed),
+                isSelected: hasFlag(track, TrackFlag.selected)
+            } as TrackDetail)),
+            takeUntil(this.abandon$)
+        );
     }
 
     ngOnDestroy(): void {
         this.abandon$.next();
     }
 
-    select = (track: Track): void => {
+    select = (track: TrackDetail): void => {
         this.reaperService.select(track).pipe(
             first(),
             tap(_ => this.state.update()),
@@ -50,7 +60,7 @@ export class TrackDetailComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
-    toggleMute = (track: Track): void => {
+    toggleMute = (track: TrackDetail): void => {
         this.reaperService.toggleMute(track).pipe(
             first(),
             tap(_ => this.state.update()),
@@ -58,7 +68,7 @@ export class TrackDetailComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
-    toggleRecordArm = (track: Track): void => {
+    toggleRecordArm = (track: TrackDetail): void => {
         this.reaperService.toggleRecordArm(track).pipe(
             first(),
             tap(_ => this.state.update()),
@@ -66,7 +76,7 @@ export class TrackDetailComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
-    isTrackDark = (track: Track): boolean =>
+    isTrackDark = (track: TrackDetail): boolean =>
         isDark(track.color)
 
 }

@@ -1,14 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TrackState } from 'src/app/shared/models';
+import { map } from 'rxjs/operators';
 import { TrackMasterStateService } from 'src/app/track/track-master/track-master-state.service';
-
-export interface Track extends TrackState {
-    isFolder: boolean;
-    isMuted: boolean;
-    isRecordArmed: boolean;
-    isSelected: boolean;
-}
 
 @Component({
     selector: 'app-track-list',
@@ -17,13 +10,15 @@ export interface Track extends TrackState {
 })
 export class TrackListComponent implements OnInit {
 
-    tracks$: Observable<TrackState[]>;
+    trackNumbers$: Observable<number[]>;
 
     constructor(
         private state: TrackMasterStateService
     ) { }
 
     ngOnInit(): void {
-        this.tracks$ = this.state.tracks$;
+        this.trackNumbers$ = this.state.trackCount$.pipe(
+            map(count => [...Array(count).keys(), count])
+        );
     }
 }

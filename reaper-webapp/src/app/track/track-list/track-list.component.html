@@ -1,5 +1,5 @@
-<ng-container *ngIf="tracks$ | async as tracks">
-    <app-track-detail *ngFor="let track of tracks"
-                      [track]="track">
+<ng-container *ngIf="trackNumbers$ | async as trackNumbers">
+    <app-track-detail *ngFor="let trackNumber of trackNumbers"
+                      [trackNumber]="trackNumber">
     </app-track-detail>
 </ng-container>
