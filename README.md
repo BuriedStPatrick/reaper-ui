@@ -1,6 +1,8 @@
 # Reaper UI
 An Angular based web-UI client for the REAPER DAW.
 
+![Create release](https://github.com/BuriedStPatrick/reaper-ui/workflows/Create%20release/badge.svg)
+
 # Installation
 1. Go to releases section and get the latest version
 2. Download the zip-file and extract it into the REAPER web pages folder `C:\PATH\TO\REAPER\INSTALLATION\reaper_www_root`. Do not replace index.html if it asks you. You might be overriding another one of your web interfaces.
