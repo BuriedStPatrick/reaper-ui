@@ -17,13 +17,13 @@ jobs:
         yarn install
         yarn build
 
-  test:
+  lint:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
     - uses: actions/setup-node@master
-    - name: Test reaper-webapp
+    - name: Lint reaper-webapp
       working-directory: ./reaper-webapp
       run: |
         yarn install
-        yarn test
+        yarn lint
