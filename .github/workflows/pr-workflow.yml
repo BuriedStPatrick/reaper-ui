@@ -1,0 +1,29 @@
+name: "pr-workflow"
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+    - name: Test reaper-webapp
+      working-directory: ./reaper-webapp
+      run: |
+        yarn install
+        yarn test
+        
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+    - name: Lint reaper-webapp
+      working-directory: ./reaper-webapp
+      run: |
+        yarn install
+        yarn lint
