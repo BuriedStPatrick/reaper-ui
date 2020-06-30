@@ -1,5 +1,5 @@
-name: "pr-workflow"
-on: # rebuild any PRs and main branch changes
+name: "Pull request checks"
+on:
   pull_request:
     branches:
       - master
