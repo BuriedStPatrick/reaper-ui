@@ -6,6 +6,17 @@ on: # rebuild any PRs and main branch changes
       - master
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+    - name: Build reaper-webapp
+      working-directory: ./reaper-webapp
+      run: |
+        yarn install
+        yarn build
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -16,14 +27,3 @@ jobs:
       run: |
         yarn install
         yarn test
-        
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-    - name: Lint reaper-webapp
-      working-directory: ./reaper-webapp
-      run: |
-        yarn install
-        yarn lint
