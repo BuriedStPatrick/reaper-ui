@@ -1,0 +1,44 @@
+name: "Create release"
+on: # rebuild any PRs and main branch changes
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+
+    - name: Build reaper-webapp
+      working-directory: ./reaper-webapp
+      run: |
+        yarn install
+        yarn build
+
+    - name: Zip reaper-webapp
+      run: |
+        zip --junk-paths reaper-webapp ./reaper-webapp/dist/
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./reaper-webapp.zip
+        asset_name: reaper-webapp.zip
+        asset_content_type: application/zip
