@@ -8,3 +8,9 @@ export const toReaperAction = (input: string): ReaperAction => {
         action: split[2]
     } as ReaperAction;
 };
+
+export const reaperActionIcons: { [actionname: string]: string; } = {
+    '.*\t.*\t(Track:)': 'list',
+    '.*\t.*\t(View:)': 'view_quilt',
+    '.*\t.*\t(Transport:)': 'equalizer'
+};

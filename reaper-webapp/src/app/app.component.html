@@ -1,20 +1,57 @@
-<ng-container *ngIf="transportState$ | async as transport">
-    <button (click)="play()">{{transport.playstate ? '⏸ PAUSE' : '▶️ PLAY'}}</button>
-    <button (click)="addAction()">➕ ADD ACTION</button>
-</ng-container>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <button mat-icon-button
+                class="example-icon"
+                aria-hidden="false"
+                aria-label="Example delete icon"
+                (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>Reaper UI</span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button
+                class="example-icon"
+                aria-hidden="false"
+                aria-label="Go fullscreen">
+            <mat-icon>fullscreen</mat-icon>
+        </button>
+        <button mat-icon-button
+                class="example-icon"
+                aria-hidden="false"
+                aria-label="Settings and more">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row>
+        <button mat-button
+                routerLink="/">
+            <mat-icon>dashboard</mat-icon> Dashboard
+        </button>
+        <button mat-button
+                routerLink="/actions">
+            <mat-icon>play_arrow</mat-icon> Actions
+        </button>
+        <button mat-button
+                routerLink="/tracks">
+            <mat-icon>list</mat-icon> Tracks
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-drawer-container class="example-container"
+                      autosize>
+    <mat-drawer #drawer
+                class="example-sidenav"
+                mode="side">
+        <p>Auto-resizing sidenav</p>
+        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <button (click)="showFiller = !showFiller"
+                mat-raised-button>
+            Toggle extra text
+        </button>
+    </mat-drawer>
 
-<nav>
-    <ul>
-        <li>
-            <a routerLink="/">HOME</a>
-        </li>
-        <li>
-            <a routerLink="/actions">ACTIONS</a>
-        </li>
-        <li *ngIf="trackCount$ | async as trackCount">
-            <a routerLink="/tracks">TRACKS ({{trackCount}})</a>
-        </li>
-    </ul>
-</nav>
+    <div class="example-sidenav-content">
+        <router-outlet></router-outlet>
+    </div>
 
-<router-outlet></router-outlet>
+</mat-drawer-container>

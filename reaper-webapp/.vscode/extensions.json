@@ -2,6 +2,7 @@
   "recommendations": [
     "ms-vscode.vscode-typescript-tslint-plugin",
     "Angular.ng-template",
-    "EditorConfig.EditorConfig"
+    "EditorConfig.EditorConfig",
+    "github.vscode-pull-request-github"
   ]
 }

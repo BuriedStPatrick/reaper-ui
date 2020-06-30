@@ -1,0 +1,23 @@
+.track-number {
+    margin-left: 16px;
+    line-height: 40px;
+}
+
+.track {
+    margin: 1em;
+    width: 500px;
+
+    &.is-dark {
+        color: white;
+    }
+
+    .mat-card-avatar {
+        &.selected {
+            background: yellowgreen;
+
+            &.is-dark {
+                background: white;
+            }
+        }
+    }
+}
