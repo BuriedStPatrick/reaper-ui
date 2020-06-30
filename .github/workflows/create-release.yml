@@ -3,6 +3,8 @@ on: # rebuild any PRs and main branch changes
   push:
     branches:
       - master
+    #    tags:
+    #- 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 jobs:
   build:
@@ -18,8 +20,9 @@ jobs:
         yarn build
 
     - name: Zip reaper-webapp
+      working-directory: ./reaper-webapp
       run: |
-        zip --junk-paths reaper-webapp ./reaper-webapp/dist/
+        zip --junk-paths ../reaper-webapp.zip dist/reaper-webapp/*
 
     - name: Create Release
       id: create_release
