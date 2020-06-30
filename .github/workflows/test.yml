@@ -9,8 +9,10 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.1
-    - working-directory: ./reaper-webapp
-    - run: |
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+    - name: build
+      working-directory: ./reaper-webapp
+      run: |
         yarn install
         yarn build
