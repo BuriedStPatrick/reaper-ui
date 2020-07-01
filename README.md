@@ -7,7 +7,7 @@ An Angular based web-UI client for the REAPER DAW.
 1. Go to [releases section](https://github.com/BuriedStPatrick/reaper-ui/releases/) and get the latest version
 2. Download the zip-file and extract it into the REAPER web pages folder `C:\PATH\TO\REAPER\INSTALLATION\reaper_www_root`. Do not replace index.html if it asks you. You might be overriding another one of your web interfaces.
 3. Rename the `index.html` file from the extracted files to something like `reaper-ui.html`
-4. The page should now show up as whatever you renamed the `index.html`-file as.
+4. The page should now show up as whatever you renamed the `index.html`-file as within REAPER Preferences => Control/OSC/Web => Web browser interface.
 
 # Building
 1. See readme in `reaper-webapp` for building the webapp
