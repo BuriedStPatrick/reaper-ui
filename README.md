@@ -1,5 +1,5 @@
 # Reaper UI
-An Angular based web-UI client for the REAPER DAW.
+An Angular Material based web-UI client for the REAPER DAW.
 
 ![Create release](https://github.com/BuriedStPatrick/reaper-ui/workflows/Create%20release/badge.svg)
 
