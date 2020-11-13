@@ -1,4 +1,4 @@
-import { ReaperAction } from 'src/app/shared/action.service';
+import { ReaperAction } from '@app/shared/action.service';
 
 export const toReaperAction = (input: string): ReaperAction => {
     const split = input.split('\t');

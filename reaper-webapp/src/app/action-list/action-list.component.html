@@ -19,19 +19,23 @@
        type="text"
        (input)="setQuery($event.target.value)" />
 
-<ng-container *ngIf="actions$ | async as actions">
+<div *ngIf="actions$ | async as actions">
     <h2>Actions</h2>
-    <mat-card *ngFor="let action of actions"
-              style="margin: 1em; width: 500px;">
-        <p>{{ action.action }}</p>
-        <button mat-icon-button
-                color="primary"
-                (click)="runAction(action)">
-            <mat-icon>play_arrow</mat-icon>
-        </button>
-        <button mat-icon-button
-                (click)="toggleFavorite(action)">
-            <mat-icon color="accent">favorite_border</mat-icon>
-        </button>
-    </mat-card>
-</ng-container>
+    <cdk-virtual-scroll-viewport itemSize="100"
+                                 class="actions"
+                                 #viewport>
+        <mat-card *cdkVirtualFor="let action of actions; trackBy: trackByFn"
+                  class="action">
+            <p>{{ action.action }}</p>
+            <button mat-icon-button
+                    color="primary"
+                    (click)="runAction(action)">
+                <mat-icon>play_arrow</mat-icon>
+            </button>
+            <button mat-icon-button
+                    (click)="toggleFavorite(action)">
+                <mat-icon color="accent">favorite_border</mat-icon>
+            </button>
+        </mat-card>
+    </cdk-virtual-scroll-viewport>
+    <div>

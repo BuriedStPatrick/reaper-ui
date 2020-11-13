@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BeatposState, TrackState, TransportState } from '@app/shared/models';
+import { toBeatposState, toTrackCount, toTrackState, toTrackStates, toTransportState } from '@app/shared/reaper-helpers';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { catchError, first, map, switchMap, tap } from 'rxjs/operators';
-import { BeatposState, TrackState, TransportState } from 'src/app/shared/models';
-import { toBeatposState, toTrackCount, toTrackState, toTrackStates, toTransportState } from 'src/app/shared/reaper-helpers';
 
 @Injectable({
     providedIn: 'root'

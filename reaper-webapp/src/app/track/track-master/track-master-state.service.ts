@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
+import { arraysMatch } from '@app/shared/array-helpers';
+import { TrackState } from '@app/shared/models';
+import { toTrackCount, toTrackStates } from '@app/shared/reaper-helpers';
+import { ReaperService } from '@app/shared/reaper.service';
 import { interval, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { arraysMatch } from 'src/app/shared/array-helpers';
-import { TrackState } from 'src/app/shared/models';
-import { toTrackCount, toTrackStates } from 'src/app/shared/reaper-helpers';
-import { ReaperService } from 'src/app/shared/reaper.service';
 
 @Injectable()
 export class TrackMasterStateService implements OnDestroy {

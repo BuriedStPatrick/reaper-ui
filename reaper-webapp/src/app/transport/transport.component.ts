@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TransportState } from '@app/shared/models';
+import { ReaperService } from '@app/shared/reaper.service';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { TransportState } from 'src/app/shared/models';
-import { ReaperService } from 'src/app/shared/reaper.service';
 
 @Component({
     selector: 'app-transport',

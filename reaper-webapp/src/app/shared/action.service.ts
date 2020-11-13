@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { toReaperAction } from '@app/shared/action-helpers';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { toReaperAction } from 'src/app/shared/action-helpers';
 
 export interface ReaperAction {
     id: string;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionService, ReaperAction } from '@app/shared/action.service';
+import { ReaperService } from '@app/shared/reaper.service';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { debounceTime, filter, first, map, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { ActionService, ReaperAction } from 'src/app/shared/action.service';
-import { ReaperService } from 'src/app/shared/reaper.service';
 
 @Component({
   selector: 'app-action-list',
@@ -50,6 +50,10 @@ export class ActionListComponent implements OnInit {
             first(),
             takeUntil(this.abandon$)
         ).subscribe();
+    }
+
+    trackByFn = (action: ReaperAction): string => {
+        return action ? action.id : null;
     }
 
     toggleFavorite = (action: ReaperAction): void => {

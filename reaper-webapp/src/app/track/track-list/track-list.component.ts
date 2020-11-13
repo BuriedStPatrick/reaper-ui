@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { TrackMasterStateService } from '@app/track/track-master/track-master-state.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TrackMasterStateService } from 'src/app/track/track-master/track-master-state.service';
 
 @Component({
     selector: 'app-track-list',

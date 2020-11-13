@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { isDark } from '@app/shared/colors';
+import { TrackFlag, TrackState } from '@app/shared/models';
+import { hasFlag } from '@app/shared/reaper-helpers';
+import { ReaperService } from '@app/shared/reaper.service';
+import { TrackMasterStateService } from '@app/track/track-master/track-master-state.service';
 import { Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, first, map, takeUntil, tap } from 'rxjs/operators';
-import { isDark } from 'src/app/shared/colors';
-import { TrackFlag, TrackState } from 'src/app/shared/models';
-import { hasFlag } from 'src/app/shared/reaper-helpers';
-import { ReaperService } from 'src/app/shared/reaper.service';
-import { TrackMasterStateService } from 'src/app/track/track-master/track-master-state.service';
 
 export interface TrackDetail extends TrackState {
     isFolder: boolean;

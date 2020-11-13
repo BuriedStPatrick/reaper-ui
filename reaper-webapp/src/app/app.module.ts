@@ -1,3 +1,4 @@
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,7 +16,6 @@ import { TrackDetailComponent } from './track/track-detail/track-detail.componen
 import { TrackListComponent } from './track/track-list/track-list.component';
 import { TrackMasterComponent } from './track/track-master/track-master.component';
 import { TransportComponent } from './transport/transport.component';
-
 
 @NgModule({
     declarations: [
@@ -36,7 +36,8 @@ import { TransportComponent } from './transport/transport.component';
         MatIconModule,
         MatSidenavModule,
         MatToolbarModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        ScrollingModule
     ],
     providers: [],
     bootstrap: [AppComponent]

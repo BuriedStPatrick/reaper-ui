@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TrackMasterStateService } from 'src/app/track/track-master/track-master-state.service';
+import { TrackMasterStateService } from '@app/track/track-master/track-master-state.service';
 
 @Component({
   selector: 'app-track-master',

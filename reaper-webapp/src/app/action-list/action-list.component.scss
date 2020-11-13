@@ -1,0 +1,12 @@
+.actions {
+    height: 500px;
+
+    .action {
+        display: grid;
+        height: 100px;
+        background-color: #fff;
+        width: 500px;
+        margin: 1em;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+}

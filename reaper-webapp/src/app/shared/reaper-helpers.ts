@@ -1,6 +1,6 @@
+import { BeatposState, TrackFlag, TrackState, TransportState } from '@app/shared/models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BeatposState, TrackFlag, TrackState, TransportState } from 'src/app/shared/models';
 
 export const toTransportState = (input: Observable<string>): Observable<TransportState> => input.pipe(
   map(body => body.split('\t')),
