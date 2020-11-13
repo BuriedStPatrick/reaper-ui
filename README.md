@@ -2,6 +2,7 @@
 An Angular Material based web-UI client for the REAPER DAW.
 
 ![Create release](https://github.com/BuriedStPatrick/reaper-ui/workflows/Create%20release/badge.svg)
+![alt](./img/reaper-ui-showcase.gif)
 
 # Installation
 1. Go to [releases section](https://github.com/BuriedStPatrick/reaper-ui/releases/) and get the latest version
